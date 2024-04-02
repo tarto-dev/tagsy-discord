@@ -110,13 +110,10 @@ class TagCommands(commands.Cog):
             # Suggest similar tags if the requested tag is not found.
             echo = await get_similar_tags(server_id, tag)
             if echo:
+                suggestions = ", ".join([str(e[0]) for e in echo])
                 await inter.response.send_message(
-                    f"No message found for tag \"{tag}\". Suggestions: {', '.join(echo)}",
+                    f'No message found for tag "{tag}". Suggestions: {suggestions}',
                     ephemeral=True,
-                )
-            else:
-                await inter.response.send_message(
-                    f'No message found for tag "{tag}".', ephemeral=True
                 )
 
     @commands.slash_command(
