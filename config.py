@@ -1,8 +1,10 @@
-from dotenv import load_dotenv
+"""
+This module provides a function to load configuration
+variables from environment variables and a .env file.
+"""
+
 import os
+from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
-
-# Access the DISCORD_TOKEN variable
 TOKEN = os.getenv("DISCORD_TOKEN")
