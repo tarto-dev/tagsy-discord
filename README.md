@@ -2,6 +2,8 @@
 
 A Discord bot designed to manage and recall tagged messages within servers. This bot allows users to add, retrieve, update, delete, and list tagged messages, providing an organized way to store and access information quickly.
 
+Got troubles ? Ask me on Discord: @tarto
+
 # Table of Contents
 
 - [Features](#features)
