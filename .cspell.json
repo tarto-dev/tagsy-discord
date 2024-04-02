@@ -1,0 +1,22 @@
+// cSpell Settings
+{
+    "version": "0.2",
+    "language": "en",
+    "words": [
+      "tarto",
+      "dotenv",
+      "dotenvr",
+      "disnake",
+      "aiosqlite",
+      "getall",
+      "venv"
+    ],
+    "ignorePaths": [
+      "__pycache__",
+      "*/__pycache__/*",
+      "dist",
+      "build",
+      "out",
+      "venv"
+    ]
+}

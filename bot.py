@@ -31,7 +31,7 @@ async def on_ready():
         None
     """
     print(f"{bot.user} has connected to Discord!")
-    await db_setup()  # Initialise la base de données
+    await db_setup()  # Setup the database
 
     for filename in os.listdir("./commands"):
         if filename.endswith(".py") and not filename.startswith("_"):
