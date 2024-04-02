@@ -60,6 +60,8 @@ Create a `.env` file in the root directory and add your [Discord bot token](http
 - To start the bot, run:
 `python bot.py`
 
+![image](https://github.com/tarto-dev/tagsy-discord/assets/1745200/252c516d-82de-45f5-a164-cceb023c9db3)
+
 ## Usage
 Once the bot is running and invited to a server, you can use the following slash commands:
 
