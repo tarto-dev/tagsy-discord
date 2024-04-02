@@ -7,9 +7,9 @@ to load these from a .env file if it exists.
 import os
 from dotenv import load_dotenv
 
-env_path = ".env"
+ENV_PATH = ".env"
 
-if os.path.exists(env_path):
-    load_dotenv(env_path)
+if os.path.exists(ENV_PATH):
+    load_dotenv(ENV_PATH)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
