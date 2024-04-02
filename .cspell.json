@@ -17,6 +17,9 @@
       "dist",
       "build",
       "out",
-      "venv"
+      "venv",
+      ".gitignore",
+      ".dockerignore",
+      "fly.toml"
     ]
 }
