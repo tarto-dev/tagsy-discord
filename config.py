@@ -13,3 +13,4 @@ if os.path.exists(ENV_PATH):
     load_dotenv(ENV_PATH)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+DATABASE_FILE = os.getenv("DATABASE_FILE")

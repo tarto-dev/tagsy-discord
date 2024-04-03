@@ -9,7 +9,7 @@ from io import StringIO
 import disnake
 from disnake.ext import commands
 
-from db import get_all_tags_for_all_servers
+from db import get_all_tags_for_all_servers, DB_PATH
 
 
 class DevCommands(commands.Cog):
@@ -49,7 +49,7 @@ class DevCommands(commands.Cog):
         - None
         """
         try:
-            with open("/app/data/database.db", "rb") as db_file:
+            with open(DB_PATH, "rb") as db_file:
                 await ctx.author.send(
                     "Here is the database file:",
                     file=disnake.File(db_file, "database.db"),
@@ -108,7 +108,7 @@ class DevCommands(commands.Cog):
         try:
             attachment = ctx.message.attachments[0]
             if attachment.filename.endswith(".db"):
-                await attachment.save(f"/app/data/{attachment.filename}")
+                await attachment.save(DB_PATH)
                 await ctx.send("Database file imported.")
             else:
                 await ctx.send("Invalid file format. Please upload a .db file.")
