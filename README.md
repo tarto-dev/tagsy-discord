@@ -55,7 +55,10 @@ source venv/bin/activate
 4. Set up the environment variables
 
 Create a `.env` file in the root directory and add your [Discord bot token](https://discord.com/developers/docs/quick-start/getting-started#step-1-creating-an-app):
-`DISCORD_TOKEN=your_discord_bot_token_here`
+```
+DISCORD_TOKEN=your_discord_bot_token_here
+DATABASE_FILE=database.db
+```
 
 ### Running the Bot
 - Ensure your virtual environment is activated.

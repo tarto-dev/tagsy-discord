@@ -34,8 +34,9 @@ Resets the usage count for a specific tag to zero.
 """
 
 import aiosqlite
+from config import DATABASE_FILE
 
-DB_PATH = "/app/data/database.db"
+DB_PATH = DATABASE_FILE
 
 
 async def db_setup():
