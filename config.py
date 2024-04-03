@@ -14,3 +14,4 @@ if os.path.exists(ENV_PATH):
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 DATABASE_FILE = os.getenv("DB_PATH")
+BUILD_VERSION = os.getenv("BUILD_VERSION", "default-value")
