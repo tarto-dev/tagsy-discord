@@ -13,6 +13,7 @@
       "senddb",
       "importdb",
       "dumpcsv",
+      "dumpconfig",
       "pycache"
     ],
     "ignorePaths": [
