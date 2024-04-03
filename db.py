@@ -154,6 +154,39 @@ async def get_all_messages(server_id):
         return messages
 
 
+async def get_all_tags_for_all_servers():
+    """
+    Retrieve all tags and their details (tag, content, created_by, created_at, usage_count)
+    from the database for all servers.
+
+    Returns:
+      A list of dictionaries, each containing details about a tag.
+    """
+    async with aiosqlite.connect(DB_PATH) as db:
+        cursor = await db.execute(
+            """
+            SELECT server_id, tag, content, created_by, created_at, usage_count
+            FROM messages
+            """
+        )
+        rows = await cursor.fetchall()
+
+        # Convert rows to a list of dictionaries for easier access in the calling function
+        tags = [
+            {
+                "server_id": row[0],
+                "tag": row[1],
+                "content": row[2],
+                "created_by": row[3],
+                "created_at": row[4],
+                "usage_count": row[5],
+            }
+            for row in rows
+        ]
+
+        return tags
+
+
 async def increment_usage_count(server_id, tag):
     """Increments the usage count for a specific tag."""
     async with aiosqlite.connect(DB_PATH) as db:
