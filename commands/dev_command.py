@@ -5,6 +5,7 @@ This module provides functionality to download the database dump.
 """
 
 import csv
+import os
 from io import StringIO
 import disnake
 from disnake.ext import commands
@@ -173,6 +174,44 @@ class DevCommands(commands.Cog):
             await ctx.send(f"Failed to create or send the file: {e}")
         except KeyError as e:
             await ctx.send(f"Data format error: Missing {e}")
+        except disnake.HTTPException as e:
+            await ctx.send(f"Failed to send file via DM: {e}")
+
+    # add command that dump configs values
+    @commands.command(name="dumpconfig", hidden=True)
+    @commands.is_owner()
+    async def dump_config(self, ctx):
+        """
+        Dumps all config variables from the environment variables into a CSV file,
+        then sends this file to the bot owner.
+
+        Parameters:
+        - ctx (commands.Context): The context of the command.
+
+        Raises:
+        - IOError: If there is an error creating or sending the file.
+        - disnake.HTTPException: If there is an error sending the file via DM.
+        """
+        try:
+            with StringIO() as output:
+                writer = csv.writer(output)
+                # Write the header of the CSV file
+                writer.writerow(["Variable", "Value"])
+
+                # Write each row from the environment variables
+                for key, value in os.environ.items():
+                    writer.writerow([key, value])
+
+                output.seek(0)  # Go back to the start of the StringIO object
+                # Send the generated CSV file
+                await ctx.author.send(
+                    "Here is the CSV dump of all config variables:",
+                    file=disnake.File(fp=output, filename="config_dump.csv"),
+                )
+
+            await ctx.send("CSV dump of config variables has been sent via DM.")
+        except IOError as e:
+            await ctx.send(f"Failed to create or send the file: {e}")
         except disnake.HTTPException as e:
             await ctx.send(f"Failed to send file via DM: {e}")
 
