@@ -306,13 +306,10 @@ class TagCommands(commands.Cog):
                     suggestions = [str(e[0]) for e in echo]
                     await message.channel.send(
                         f'No message found for tag "{tag}".'
-                        + f"Suggestions: {', '.join(suggestions)}",
-                        ephemeral=True,
+                        + f"Suggestions: {', '.join(suggestions)}"
                     )
                 else:
-                    await message.channel.send(
-                        f'No message found for tag "{tag}".', ephemeral=True
-                    )
+                    await message.channel.send(f'No message found for tag "{tag}".')
 
 
 async def tag_exists(server_id, tag):
