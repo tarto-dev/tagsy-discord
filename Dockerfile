@@ -16,5 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the Python bot.py file to the container
 COPY . /app
 
+ARG BUILD
+ENV BUILD_VERSION=$BUILD
+
 # Start the Python bot
 CMD ["python", "bot.py"]
