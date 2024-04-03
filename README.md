@@ -15,6 +15,9 @@ Got troubles ? Ask me on Discord: @tarto
 - [Contributing](#contributing)
 - [License](#license)
 
+[![image](https://github.com/tarto-dev/tagsy-discord/assets/1745200/7d305ecd-1edb-4bf9-9693-5afc7fd7e32e)](https://discord.com/oauth2/authorize?client_id=1224771846247809156&permissions=8&scope=bot)
+
+
 ## Features
 
 - Tag Management: Easily add, update, and delete tags for messages.
