@@ -12,11 +12,13 @@
       "venv",
       "senddb",
       "importdb",
-      "dumpcsv"
+      "dumpcsv",
+      "pycache"
     ],
     "ignorePaths": [
+      ".github/*",
       "__pycache__",
-      "*/__pycache__/*",
+      "**/__pycache__/*",
       "dist",
       "build",
       "out",
