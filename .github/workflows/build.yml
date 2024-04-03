@@ -53,3 +53,5 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           BUILD: ${{ github.run_id }}
+          BUILD_VERSION: ${{ github.sha }}
+          TEST: "TOTO"
