@@ -12,7 +12,7 @@ import config
 intents = disnake.Intents.all()
 intents.presences = False
 
-bot = commands.Bot(intents=intents, command_prefix="!!!")
+bot = commands.Bot(intents=intents, command_prefix="!!!", help_command=None)
 
 
 @bot.event
