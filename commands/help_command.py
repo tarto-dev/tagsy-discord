@@ -89,6 +89,20 @@ class HelpCommands(commands.Cog):
             "update": "Updates the content of a tagged message. "
             + " Usage: `/update <tag> <new message>`",
             "reset": "Resets the usage count for a tag." + " Usage: `/reset <tag>`",
+            "senddb": "Sends the database file to the bot owner. "
+            + " Only available to the bot owner. Usage: `senddb`",
+            "reload": "Reloads a command extension. "
+            + " Only available to the bot owner. "
+            + " Usage: `reload <extension>`",
+            "importdb": "Imports a database file. "
+            + " Only available to the bot owner. "
+            + " Usage: `importdb` with a .db file attachment",
+            "dumpcsv": "Dumps all tags from all servers into a CSV file."
+            + " Only available to the bot owner. "
+            + " Usage: `dumpcsv`",
+            "dumpconfig": "Dumps all config variables into a CSV file. "
+            + " Only available to the bot owner. "
+            + " Usage: `dumpconfig`",
         }
 
         description = commands_descriptions.get(command, "Command not found.")
