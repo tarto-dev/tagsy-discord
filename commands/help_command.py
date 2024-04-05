@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This module provides a HelpCommands cog for a Discord bot.
 
@@ -17,9 +18,7 @@ from disnake.ext import commands
 
 
 class HelpCommands(commands.Cog):
-    """
-    A Cog for displaying detailed help for the available commands in the bot.
-    """
+    """A Cog for displaying detailed help for the available commands in the bot."""
 
     def __init__(self, bot):
         """

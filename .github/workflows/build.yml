@@ -58,4 +58,3 @@ jobs:
           flyctl secrets set BUILD=${{ github.run_number }} DEPLOYMENT_TIME=$DEPLOYMENT_TIME BUILD_RUNID=${{ github.run_id }} BUILD_SHA=${{ github.sha }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-
