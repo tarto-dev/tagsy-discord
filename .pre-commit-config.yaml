@@ -1,0 +1,54 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-toml
+    -   id: check-added-large-files
+    -   id: requirements-txt-fixer
+    -   id: fix-encoding-pragma
+-   repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v8.6.1
+    hooks:
+    - id: cspell
+      name: cspell
+      description: This hook runs CSpell spellchecker
+      entry: cspell-cli
+      language: node
+      types: [text]
+      args:
+          - --no-must-find-files
+          - --no-progress
+          - --no-summary
+          - --gitignore
+-   repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--profile, black]
+
+-   repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        args: [--safe, --quiet]
+      - id: black
+        name: black-doc
+        args: [--safe, --quiet]
+
+-   repo: https://github.com/DanielNoord/pydocstringformatter
+    rev: v0.7.3
+    hooks:
+      - id: pydocstringformatter
+        args: ["--max-summary-lines=2", "--linewrap-full-docstring"]
+        files: "."
+
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.7.8
+    hooks:
+      - id: bandit
+        args: ["-r", "-lll"]
