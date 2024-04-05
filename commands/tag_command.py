@@ -293,13 +293,8 @@ class TagCommands(commands.Cog):
             tag_info = await get_message(server_id, tag)
 
             if tag_info:
-
-                member = message.guild.get_member(int(tag_info["created_by"]))
-                username = member.display_name if member else "Unknown user"
-                embed = build_embed(tag_info, username)
-
                 await increment_usage_count(server_id, tag)
-                await message.channel.send(embed=embed)
+                await message.channel.send(tag_info["content"])
             else:
                 echo = await get_similar_tags(server_id, tag)
                 if echo:
@@ -350,7 +345,7 @@ def find_tag_in_string(s):
         list: A list of tags found in the input string.
 
     """
-    tags = re.findall(r"%(\w+)", s)
+    tags = re.findall(r"%(\w+[-\w]*)", s)
     return tags
 
 
