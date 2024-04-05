@@ -288,6 +288,8 @@ class TagCommands(commands.Cog):
 
         if find_tag_in_string(message.content):
             tag = find_tag_in_string(message.content)[0]
+            if len(tag) < 3:
+                return
             server_id = str(message.guild.id)
 
             tag_info = await get_message(server_id, tag)
