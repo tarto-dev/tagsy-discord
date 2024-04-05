@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """A module that contains the TagCommands class,
 which is a Cog for handling commands related to tagging messages within Discord servers.
 
@@ -30,7 +31,8 @@ from db import (
 
 class TagCommands(commands.Cog):
     """
-    A Cog for handling commands related to tagging messages within Discord servers.
+    A Cog for handling commands related to tagging messages within Discord
+    servers.
     """
 
     def __init__(self, bot):
@@ -80,6 +82,7 @@ class TagCommands(commands.Cog):
     async def get(self, inter: disnake.ApplicationCommandInteraction, tag: str):
         """
         Retrieves and displays a tagged message from the database.
+
         If not found, suggests similar tags.
 
         Parameters:
@@ -91,7 +94,6 @@ class TagCommands(commands.Cog):
 
         Raises:
         - disnake.NotFound: If the user who created the tagged message is not found.
-
         """
         server_id = str(inter.guild.id)
         tag_info = await get_message(server_id, tag)
@@ -122,7 +124,8 @@ class TagCommands(commands.Cog):
     async def getall(self, inter: disnake.ApplicationCommandInteraction):
         """
         Retrieves and displays all tags and their associated messages
-        from the database for the server, including details such as
+        from the database for the server, including details such as.
+
         who posted it, when it was posted, and the number of uses.
 
         Each tagged message is displayed in its own embed.
@@ -343,7 +346,6 @@ def find_tag_in_string(s):
 
     Returns:
         list: A list of tags found in the input string.
-
     """
     tags = re.findall(r"%(\w+[-\w]*)", s)
     return tags
@@ -380,7 +382,6 @@ def build_embed(tag_info, username):
 
     Returns:
         disnake.Embed: An embed object representing the tagged message.
-
     """
     created_at = datetime.datetime.strptime(tag_info["created_at"], "%Y-%m-%d %H:%M:%S")
     created_at_formatted = created_at.strftime("%d/%m/%Y at %H:%M")

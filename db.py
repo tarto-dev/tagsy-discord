@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 This module provides functions for interacting with a SQLite
 database using the aiosqlite library.
+
 It includes functions for setting up the database, adding, retrieving,
 deleting, updating, and resetting messages.
 
@@ -34,6 +36,7 @@ Resets the usage count for a specific tag to zero.
 """
 
 import aiosqlite
+
 from config import DATABASE_FILE
 
 DB_PATH = DATABASE_FILE
@@ -120,7 +123,9 @@ async def update_message(server_id, tag, content):
 
 async def get_all_messages(server_id):
     """
-    Retrieve all messages and their details (tag, content, created_by, created_at, usage_count)
+    Retrieve all messages and their details (tag, content, created_by, created_at,
+    usage_count).
+
     from the database for a specific server.
 
     Args:
@@ -157,7 +162,9 @@ async def get_all_messages(server_id):
 
 async def get_all_tags_for_all_servers():
     """
-    Retrieve all tags and their details (tag, content, created_by, created_at, usage_count)
+    Retrieve all tags and their details (tag, content, created_by, created_at,
+    usage_count).
+
     from the database for all servers.
 
     Returns:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This module contains the implementation of the dev command.
 
@@ -7,15 +8,17 @@ This module provides functionality to download the database dump.
 import csv
 import os
 from io import StringIO
+
 import disnake
 from disnake.ext import commands
 
-from db import get_all_tags_for_all_servers, DB_PATH
+from db import DB_PATH, get_all_tags_for_all_servers
 
 
 class DevCommands(commands.Cog):
     """
     A class that represents development commands for the bot.
+
     These commands are only available to the bot owner.
     """
 
@@ -36,6 +39,7 @@ class DevCommands(commands.Cog):
     async def send_database(self, ctx):
         """
         Sends the database file to the bot owner via direct message.
+
         This command is only available to the bot owner.
 
         Parameters:
@@ -70,6 +74,7 @@ class DevCommands(commands.Cog):
     async def reload_extension(self, ctx, extension):
         """
         Reloads a command extension.
+
         This command is only available to the bot owner.
 
         Args:
@@ -93,6 +98,7 @@ class DevCommands(commands.Cog):
     async def import_database(self, ctx):
         """
         Imports the database file from the bot owner via direct message.
+
         This command is only available to the bot owner.
 
         Parameters:
@@ -104,7 +110,6 @@ class DevCommands(commands.Cog):
 
         Returns:
         - None
-
         """
         try:
             attachment = ctx.message.attachments[0]
@@ -122,8 +127,11 @@ class DevCommands(commands.Cog):
     @commands.is_owner()
     async def dump_csv(self, ctx):
         """
-        Dumps all tags from all servers into a CSV file, including server ID, tag, content,
-        created by, creation date, and usage count, then sends this file to the bot owner.
+        Dumps all tags from all servers into a CSV file, including server ID, tag,
+        content,.
+
+        created by, creation date, and usage count, then sends this file to the bot
+        owner.
 
         Parameters:
         - ctx (commands.Context): The context of the command.
