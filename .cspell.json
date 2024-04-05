@@ -28,6 +28,7 @@
       ".gitignore",
       ".dockerignore",
       "fly.toml",
-      "*requirements.txt"
+      "*requirements.txt",
+      ".pre-commit-config.yaml"
     ]
 }
