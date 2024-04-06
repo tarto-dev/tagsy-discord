@@ -5,6 +5,9 @@
     "words": [
       "Tagsy",
       "tarto",
+      "isort",
+      "pydocstringformatter",
+      "pylint",
       "dotenv",
       "dotenvr",
       "disnake",
