@@ -15,7 +15,7 @@ Table of Contents
 
 ## Invite Tagsy on your discord
 
-[![add tagsy round cursor](https://github.com/tarto-dev/tagsy-discord/assets/1745200/043035e1-bbad-4671-bdee-7db5acc3655e)](https://discord.com/oauth2/authorize?client_id=1224771846247809156&permissions=8&scope=bot)
+[![add tagsy round cursor](https://github.com/tarto-dev/tagsy-discord/assets/1745200/043035e1-bbad-4671-bdee-7db5acc3655e)](https://discord.com/oauth2/authorize?client_id=1224771846247809156&permissions=277025451008&scope=bot)
 
 ## Features
 
