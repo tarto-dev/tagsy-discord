@@ -25,6 +25,8 @@ Table of Contents
 - **Slash Commands Support**: Tagsy utilizes slash commands for an intuitive user experience, ensuring commands are easily discoverable and usable.
 - **Context Menus**: Integrates with Discord's context menus, providing a seamless user interface directly from messages.
 
+![Animation](https://github.com/tarto-dev/tagsy-discord/assets/1745200/30b5e1a9-d962-4715-bb47-7d8a14ead778)
+
 ## Setup
 
 To run Tagsy on your server, you need to have Python 3.8 or higher and the following dependencies:
