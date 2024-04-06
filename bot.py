@@ -1,13 +1,17 @@
+# -*- coding: utf-8 -*-
 """
 This is a Discord bot implemented using the disnake library.
+
 It handles various events and commands for interaction on a Discord server.
 """
 
 import os
+
 import disnake
 from disnake.ext import commands
-from db import db_setup
+
 import config
+from db import db_setup
 
 intents = disnake.Intents.all()
 intents.presences = False
@@ -18,7 +22,8 @@ bot = commands.Bot(intents=intents, command_prefix="!!!", help_command=None)
 @bot.event
 async def on_ready():
     """
-    Event handler that is called when the bot is ready to start receiving events from Discord.
+    Event handler that is called when the bot is ready to start receiving events from
+    Discord.
 
     This function prints a message to indicate that the bot has connected to Discord and then
     initializes the database.

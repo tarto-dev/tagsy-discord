@@ -1,10 +1,14 @@
+# -*- coding: utf-8 -*-
 """
 This module provides a function to load configuration
-variables from environment variables. It also attempts
+variables from environment variables.
+
+It also attempts
 to load these from a .env file if it exists.
 """
 
 import os
+
 from dotenv import load_dotenv
 
 ENV_PATH = ".env"
