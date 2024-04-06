@@ -10,15 +10,11 @@ Classes:
 A Cog for handling commands related to tagging messages within Discord servers.
 """
 
-import datetime
-import re
-
 import disnake
 from disnake.ext import commands
 
 # Import functions from the database module to interact with tagged messages.
 from db import (
-    add_message,
     delete_message,
     get_all_messages,
     get_message,
@@ -27,6 +23,8 @@ from db import (
     reset_usage_count,
     update_message,
 )
+from helpers import build_embed, find_tag_in_string, tag_exists
+from modals import AddTagModal, UpdateTagModal
 
 
 class TagCommands(commands.Cog):
@@ -47,36 +45,9 @@ class TagCommands(commands.Cog):
         """
         self.bot = bot
 
-    @commands.slash_command(name="add", description="Adds a tagged message.")
-    async def add(
-        self, inter: disnake.ApplicationCommandInteraction, tag: str, message: str
-    ):
-        """
-        Adds a tagged message to the database.
-
-        Parameters:
-        - inter: The interaction object representing the slash command interaction.
-        - tag: The tag to be added.
-        - message: The message to be associated with the tag.
-
-        If the tag already exists, suggests alternative tags.
-        """
-        server_id = str(inter.guild.id)
-
-        # Check if the tag already exists in the database.
-        if await tag_exists(server_id, tag):
-            # Generate and suggest alternative tags.
-            recommendations = generate_recommendations(tag)
-            recommendations_str = ", ".join(recommendations)
-            await inter.response.send_message(
-                f"This tag already exists. Suggestions: {recommendations_str}."
-                + f"The message you wanted to add is ```{message}```",
-                ephemeral=True,
-            )
-        else:
-            # Insert the new tag and message into the database.
-            await add_message(server_id, tag, message, str(inter.author.id))
-            await inter.response.send_message(f'Tag "{tag}" added successfully.')
+    @commands.slash_command(name="add", description="Adds a new tag.")
+    async def add(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_modal(AddTagModal(server_id=str(inter.guild.id)))
 
     @commands.slash_command(name="get", description="Retrieves a tagged message.")
     async def get(self, inter: disnake.ApplicationCommandInteraction, tag: str):
@@ -109,7 +80,6 @@ class TagCommands(commands.Cog):
             await increment_usage_count(server_id, tag)
             await inter.response.send_message(embed=embed)
         else:
-            # Suggest similar tags if the requested tag is not found.
             echo = await get_similar_tags(server_id, tag)
             if echo:
                 suggestions = ", ".join([str(e[0]) for e in echo])
@@ -204,43 +174,9 @@ class TagCommands(commands.Cog):
                     f'No message found for tag "{tag}".', ephemeral=True
                 )
 
-    @commands.slash_command(
-        name="update", description="Updates the content of a tagged message."
-    )
-    async def update(
-        self, inter: disnake.ApplicationCommandInteraction, tag: str, message: str
-    ):
-        """
-        Updates the content of a tagged message in the database.
-
-        Parameters:
-        - inter: The interaction object representing the slash command interaction.
-        - tag: The tag name to update.
-        - message: The new content of the tagged message.
-
-        Returns:
-        None
-
-        Raises:
-        None
-        """
-        server_id = str(inter.guild.id)
-
-        if await tag_exists(server_id, tag):
-            await update_message(server_id, tag, message)
-            await inter.response.send_message(f'Tag "{tag}" updated successfully.')
-        else:
-            echo = await get_similar_tags(server_id, tag)
-            if echo:
-                suggestions = [str(e[0]) for e in echo]
-                await inter.response.send_message(
-                    f"No message found for tag \"{tag}\". Suggestions: {', '.join(suggestions)}",
-                    ephemeral=True,
-                )
-            else:
-                await inter.response.send_message(
-                    f'No message found for tag "{tag}".', ephemeral=True
-                )
+    @commands.slash_command(name="update", description="Updates an existing tag.")
+    async def update(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_modal(UpdateTagModal(server_id=str(inter.guild.id)))
 
     @commands.slash_command(
         name="reset", description="Resets the call counter for a tag."
@@ -312,47 +248,6 @@ class TagCommands(commands.Cog):
                     await message.channel.send(f'No message found for tag "{tag}".')
 
 
-async def tag_exists(server_id, tag):
-    """Checks if a tag already exists in the database.
-
-    Args:
-        server_id (int): The ID of the server where the tag is being checked.
-        tag (str): The name of the tag being checked.
-
-    Returns:
-        bool: True if the tag exists in the database, False otherwise.
-    """
-    tag_info = await get_message(server_id, tag)
-    return tag_info is not None
-
-
-def generate_recommendations(tag):
-    """
-    Generates tag recommendations based on the original tag.
-
-    Parameters:
-    - tag (str): The original tag to generate recommendations for.
-
-    Returns:
-    - list: A list of tag recommendations, each formed by appending a number to the original tag.
-    """
-    return [f"{tag}-{i}" for i in range(1, 4)]
-
-
-def find_tag_in_string(s):
-    """
-    Finds and returns tags within a string that start with '%'.
-
-    Args:
-        s (str): The input string to search for tags.
-
-    Returns:
-        list: A list of tags found in the input string.
-    """
-    tags = re.findall(r"%(\w+[-\w]*)", s)
-    return tags
-
-
 def setup(bot):
     """
     Adds the TagCommands cog to the bot.
@@ -361,40 +256,3 @@ def setup(bot):
     - bot: The bot instance to add the cog to.
     """
     bot.add_cog(TagCommands(bot))
-
-
-def build_embed(tag_info, username):
-    """
-    Builds an embed for a tagged message.
-
-    Args:
-        tag_info (dict): A dictionary containing information about the tag.
-            It should have the following keys:
-            - 'tag': The tag name.
-
-            - 'content':
-            The content of the tag.
-
-            - 'created_at':
-            The creation date and time of the tag in the format '%Y-%m-%d %H:%M:%S'.
-
-            - 'usage_count': The number of times the tag has been used.
-
-        username (str): The username of the user who created the tag.
-
-    Returns:
-        disnake.Embed: An embed object representing the tagged message.
-    """
-    created_at = datetime.datetime.strptime(tag_info["created_at"], "%Y-%m-%d %H:%M:%S")
-    created_at_formatted = created_at.strftime("%d/%m/%Y at %H:%M")
-
-    embed = disnake.Embed(title=f"Tag: {tag_info['tag']}", color=disnake.Color.blue())
-    embed.add_field(name="Content", value=tag_info["content"], inline=False)
-    embed.add_field(name="Created by", value=username, inline=True)
-    embed.add_field(name="Added", value=created_at_formatted, inline=True)
-    embed.add_field(
-        name="Number of calls",
-        value=str(tag_info["usage_count"]),
-        inline=True,
-    )
-    return embed
