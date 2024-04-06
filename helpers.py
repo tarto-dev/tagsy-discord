@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
+"""This module contains helper functions for the Tagsy project.
+
+The functions in this module provide various utilities for working with tags in the Tagsy project.
+"""
+
 import datetime
 import re
 
 import disnake
 
-from db import get_message, tag_exists
+from db import get_message
 
 
 async def tag_exists(server_id, tag):
@@ -56,15 +61,9 @@ def build_embed(tag_info, username):
         tag_info (dict): A dictionary containing information about the tag.
             It should have the following keys:
             - 'tag': The tag name.
-
-            - 'content':
-            The content of the tag.
-
-            - 'created_at':
-            The creation date and time of the tag in the format '%Y-%m-%d %H:%M:%S'.
-
+            - 'content': The content of the tag.
+            - 'created_at': The creation date and time of the tag in the format '%Y-%m-%d %H:%M:%S'.
             - 'usage_count': The number of times the tag has been used.
-
         username (str): The username of the user who created the tag.
 
     Returns:
