@@ -80,6 +80,14 @@ async def get_similar_tags(server_id, tag):
         return await cursor.fetchall()
 
 
+async def tag_exists(server_id: int, tag: str) -> bool:
+    async with aiosqlite.connect(DB_PATH) as db:
+        cursor = await db.execute(
+            "SELECT 1 FROM messages WHERE server_id = ? AND tag = ?", (server_id, tag)
+        )
+        return await cursor.fetchone() is not None
+
+
 async def get_message(server_id, tag):
     """Retrieves a specific message by tag from the database."""
     async with aiosqlite.connect(DB_PATH) as db:
