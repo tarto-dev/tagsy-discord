@@ -1,4 +1,7 @@
 -r requirements.txt
+bandit==1.7.8
 black==24.3.0
+isort==5.13.2
 pre_commit==3.7.0
+pydocstringformatter==0.7.3
 pylint==3.1.0
