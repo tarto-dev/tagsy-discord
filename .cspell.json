@@ -18,7 +18,9 @@
       "importdb",
       "dumpcsv",
       "dumpconfig",
-      "pycache"
+      "pycache",
+      "docstrings",
+      "linewrap"
     ],
     "ignorePaths": [
       ".github/*",
