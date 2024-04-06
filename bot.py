@@ -8,11 +8,18 @@ It handles various events and commands for interaction on a Discord server.
 import os
 
 import disnake
+import sentry_sdk
 from disnake.ext import commands
 
 import config
 from context_menu import ContextMenuCommands
 from db import db_setup
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
 
 intents = disnake.Intents.all()
 intents.presences = False
