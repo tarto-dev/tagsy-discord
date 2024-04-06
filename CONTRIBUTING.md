@@ -1,6 +1,29 @@
 # Contributing to Tagsy
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+
+## Table of Contents
+- [We Love Your Input!](#we-love-your-input)
+- [We Develop with Github](#we-develop-with-github)
+- [Using Github Flow](#using-github-flow)
+- [Contributions Under MIT Software License](#contributions-under-mit-software-license)
+- [Reporting Bugs](#reporting-bugs)
+- [Writing Bug Reports](#writing-bug-reports)
+- [Coding Style](#coding-style)
+  - [How to Apply Coding Styles](#how-to-apply-coding-styles)
+- [Project Structure](#project-structure)
+  - [Adding New Features or Commands](#adding-new-features-or-commands)
+- [Pre-commit Hooks](#pre-commit-hooks)
+  - [Setting Up Pre-commit](#setting-up-pre-commit)
+  - [Hooks Used](#hooks-used)
+- [GitHub Actions Workflows](#github-actions-workflows)
+  - [Workflow Jobs](#workflow-jobs)
+  - [Deployment](#deployment)
+- [License](#license)
+- [References](#references)
+
+## We love your input!
+
+We want to make contributing to this project as easy and transparent as possible, whether it's:
 - Reporting a bug
 - Discussing the current state of the code
 - Submitting a fix
@@ -43,8 +66,38 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 
 ## Use a Consistent Coding Style
 
-* 4 spaces for indentation rather than tabs
-* You can try running `npm run lint` for style unification
+### Coding Style
+
+Our project enforces a consistent coding style to ensure the codebase remains clean, readable, and maintainable. We use several tools to help with this:
+
+- **Black** for Python code formatting. Black makes code review faster by producing the smallest diffs possible.
+- **isort** to sort imports alphabetically, and automatically separated into sections and by type. It ensures that the imports are visually distinct and grouped.
+- **pydocstringformatter** to format docstrings to adhere to the project's documentation standards.
+- **bandit** for Python security audit to keep our codebase secure.
+
+#### How to Apply Coding Styles
+
+Before submitting your pull request, please make sure your contributions adhere to these styles. Here's how you can do it:
+
+1. Run isort to sort your imports:
+
+   `isort .`
+
+2. Use Black to format your Python files:
+
+   `black --safe --quiet .`
+
+3. Run pydocstringformatter to ensure your docstrings follow our conventions:
+
+   `pydocstringformatter --max-summary-lines=2 --linewrap-full-docstring .`
+
+4. Execute bandit to check for common security issues:
+
+   `bandit -r -lll .`
+
+You can manually run these commands, or set up pre-commit hooks as described in the pre-commit section to automatically apply these styles and checks before each commit.
+
+Ensuring your code follows these guidelines will help make the review process faster and smoother for everyone involved.
 
 ### Project Structure
 
