@@ -30,3 +30,27 @@ async def tag_exists(server_id, tag):
     """
     tag_info = await get_message(server_id, tag)
     return tag_info is not None
+
+
+def create_selected_message_content(inter):
+    """
+    Creates a formatted message content with information about the selected message.
+
+    Args:
+        inter: The interaction object containing the selected message.
+
+    Returns:
+        str: The formatted message content.
+    """
+    selected_message_content = inter.target.content
+    original_author = inter.target.author
+    original_link = inter.target.jump_url
+    original_date = inter.target.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+    selected_message_content = (
+        f"Original author: {original_author}\n"
+        f"Original date: {original_date} [jump]({original_link}) \n\n"
+        f"{selected_message_content}"
+    )
+
+    return selected_message_content
