@@ -16,7 +16,12 @@ from db import db_setup
 intents = disnake.Intents.all()
 intents.presences = False
 
-bot = commands.Bot(intents=intents, command_prefix="!!!", help_command=None)
+bot = commands.Bot(
+    intents=intents,
+    command_prefix="!!!",
+    help_command=None,
+    command_sync_flags=commands.CommandSyncFlags.all(),
+)
 
 
 @bot.event
