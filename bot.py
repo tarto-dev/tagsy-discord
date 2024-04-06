@@ -11,6 +11,7 @@ import disnake
 from disnake.ext import commands
 
 import config
+from context_menu import ContextMenuCommands
 from db import db_setup
 
 intents = disnake.Intents.all()
@@ -51,6 +52,7 @@ async def on_ready():
                 print(f"Loaded extension: {extension}")
             except commands.errors.ExtensionNotFound as e:
                 print(f"Failed to load extension {extension}.", e)
+    bot.add_cog(ContextMenuCommands(bot))
 
 
 bot.run(config.TOKEN)
