@@ -39,9 +39,7 @@ To run Tagsy on your server, you need to have Python 3.8 or higher and the follo
 
 1. Clone this repository to your local machine or server.
 2. Install the required dependencies using pip:
-```shell
-   pip install -r requirements.txt
-```
+   `pip install -r requirements.txt`
 
 3. Create a `.env` file in the root directory of the project and add your Discord bot token and database path:
 
@@ -52,9 +50,7 @@ To run Tagsy on your server, you need to have Python 3.8 or higher and the follo
 
 4. Run the bot:
 
-```shell
-   python bot.py
-```
+   `python bot.py`
 
 ## Usage
 
@@ -83,12 +79,16 @@ We welcome contributions of all kinds from the community! Whether you're looking
 1. Fork the repository and clone your fork to your local machine.
 2. Set up a virtual environment for Python to manage dependencies separately:
 
+```shell
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
 
 3. Install the development dependencies:
 
+```shell
     pip install -r requirements.txt
+```
 
 4. Create a `.env` file in the root directory with the necessary configuration variables:
 
