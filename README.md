@@ -29,9 +29,9 @@ Table of Contents
 
 To run Tagsy on your server, you need to have Python 3.8 or higher and the following dependencies:
 
-- disnake
-- aiosqlite
-- python-dotenv
+- [disnake](https://docs.disnake.dev/en/stable/)
+- [aiosqlite](https://aiosqlite.omnilib.dev/en/latest/)
+- [python-dotenv](https://github.com/theskumar/python-dotenv)
 
 ### Installation Steps
 
