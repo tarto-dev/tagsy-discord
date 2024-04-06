@@ -1,13 +1,23 @@
 # -*- coding: utf-8 -*-
+"""This module contains the modal classes used in the Tagsy application."""
+# pylint: disable=arguments-differ
 import disnake
 
-from db import add_message, get_similar_tags, tag_exists, update_message
-from helpers import generate_recommendations
+from db import add_message, get_similar_tags, update_message
+from helpers import generate_recommendations, tag_exists
 from views import YesNoView
 
 
 class AddTagModal(disnake.ui.Modal):
+    """A modal for adding a new tag."""
+
     def __init__(self, server_id):
+        """
+        Initialize the AddTagModal.
+
+        Args:
+            server_id (int): The ID of the server where the tag will be added.
+        """
         self.server_id = server_id
         components = [
             disnake.ui.TextInput(
@@ -64,6 +74,15 @@ class AddTagModal(disnake.ui.Modal):
 
 
 class UpdateTagModal(disnake.ui.Modal):
+    """
+    A modal for updating an existing tag.
+
+    Args:
+        server_id (int): The ID of the server where the tag exists.
+
+    Attributes:
+        server_id (int): The ID of the server where the tag exists.
+    """
 
     def __init__(self, server_id):
         self.server_id = server_id
@@ -87,6 +106,13 @@ class UpdateTagModal(disnake.ui.Modal):
         super().__init__(title="Update existing Tag", components=components)
 
     async def callback(self, interaction: disnake.ModalInteraction):
+        """
+        Callback method called when the modal is interacted with.
+
+        Args:
+            interaction (disnake.ModalInteraction):
+                The interaction object representing the user's interaction with the modal.
+        """
         tag = interaction.text_values["tag"]
         message = interaction.text_values["message"]
         exists = await tag_exists(self.server_id, tag)
@@ -96,7 +122,8 @@ class UpdateTagModal(disnake.ui.Modal):
             if similar_tags:
                 suggestions = ", ".join([tag[0] for tag in similar_tags])
                 await interaction.response.send_message(
-                    f"The tag `{tag}` does not exist. Did you mean: {suggestions}? Use /add to create a new tag.",
+                    f"The tag `{tag}` does not exist. "
+                    + f"Did you mean: {suggestions}? Use /add to create a new tag.",
                     ephemeral=True,
                 )
             else:

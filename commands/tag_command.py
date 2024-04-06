@@ -13,7 +13,6 @@ A Cog for handling commands related to tagging messages within Discord servers.
 import disnake
 from disnake.ext import commands
 
-# Import functions from the database module to interact with tagged messages.
 from db import (
     delete_message,
     get_all_messages,
@@ -21,8 +20,9 @@ from db import (
     get_similar_tags,
     increment_usage_count,
     reset_usage_count,
-    update_message,
 )
+
+# Import functions from the database module to interact with tagged messages.
 from helpers import build_embed, find_tag_in_string, tag_exists
 from modals import AddTagModal, UpdateTagModal
 
@@ -47,6 +47,18 @@ class TagCommands(commands.Cog):
 
     @commands.slash_command(name="add", description="Adds a new tag.")
     async def add(self, inter: disnake.ApplicationCommandInteraction):
+        """
+        Adds a new tag.
+
+        Parameters:
+        - inter: The disnake.ApplicationCommandInteraction object representing the interaction.
+
+        Returns:
+        - None
+
+        Raises:
+        - None
+        """
         await inter.response.send_modal(AddTagModal(server_id=str(inter.guild.id)))
 
     @commands.slash_command(name="get", description="Retrieves a tagged message.")
@@ -176,6 +188,15 @@ class TagCommands(commands.Cog):
 
     @commands.slash_command(name="update", description="Updates an existing tag.")
     async def update(self, inter: disnake.ApplicationCommandInteraction):
+        """
+        Updates an existing tag.
+
+        Parameters:
+        - inter: The disnake.ApplicationCommandInteraction object representing the interaction.
+
+        Returns:
+        - None
+        """
         await inter.response.send_modal(UpdateTagModal(server_id=str(inter.guild.id)))
 
     @commands.slash_command(

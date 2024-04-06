@@ -80,7 +80,17 @@ async def get_similar_tags(server_id, tag):
         return await cursor.fetchall()
 
 
-async def tag_exists(server_id: int, tag: str) -> bool:
+async def db_tag_exists(server_id: int, tag: str) -> bool:
+    """
+    Check if a tag exists in the database for a given server.
+
+    Args:
+        server_id (int): The ID of the server.
+        tag (str): The tag to check.
+
+    Returns:
+        bool: True if the tag exists, False otherwise.
+    """
     async with aiosqlite.connect(DB_PATH) as db:
         cursor = await db.execute(
             "SELECT 1 FROM messages WHERE server_id = ? AND tag = ?", (server_id, tag)
