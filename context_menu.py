@@ -4,6 +4,7 @@
 import disnake
 from disnake.ext import commands
 
+from helper import create_selected_message_content
 from modals import AddTagModal
 
 
@@ -21,7 +22,7 @@ class ContextMenuCommands(commands.Cog):
 
         Parameters:
         - inter (disnake.MessageCommandInteraction):
-        The interaction object representing the context menu interaction.
+            The interaction object representing the context menu interaction.
 
         Returns:
         - None
@@ -29,18 +30,8 @@ class ContextMenuCommands(commands.Cog):
         Raises:
         - None
         """
-        selected_message_content = inter.target.content
-        original_author = inter.target.author
-        original_link = inter.target.jump_url
-        original_date = inter.target.created_at.strftime("%Y-%m-%d %H:%M:%S")
-
-        selected_message_content = (
-            f"Original author: {original_author}\n"
-            f"Original date: {original_date} [jump]({original_link}) \n\n"
-            f"{selected_message_content}"
-        )
-
         modal = AddTagModal(
-            server_id=inter.guild_id, prefill_message=selected_message_content
+            server_id=inter.guild_id,
+            prefill_message=create_selected_message_content(inter),
         )
         await inter.response.send_modal(modal)
