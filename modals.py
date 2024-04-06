@@ -11,7 +11,7 @@ from views import YesNoView
 class AddTagModal(disnake.ui.Modal):
     """A modal for adding a new tag."""
 
-    def __init__(self, server_id):
+    def __init__(self, server_id, prefill_message=""):
         """
         Initialize the AddTagModal.
 
@@ -34,6 +34,7 @@ class AddTagModal(disnake.ui.Modal):
                 style=disnake.TextInputStyle.paragraph,
                 placeholder="Enter the message for the tag",
                 max_length=1024,
+                value=prefill_message,
             ),
         ]
         super().__init__(title="Create Tag", components=components)
