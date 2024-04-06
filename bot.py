@@ -16,7 +16,7 @@ from context_menu import ContextMenuCommands
 from db import db_setup
 
 sentry_sdk.init(
-    dsn=SENTRY_DSN,
+    dsn=config.SENTRY_DSN,
     traces_sample_rate=1.0,
     profiles_sample_rate=1.0,
 )
