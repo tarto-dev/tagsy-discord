@@ -252,7 +252,8 @@ class TagCommands(commands.Cog):
 
         if find_tag_in_string(message.content):
             tag = find_tag_in_string(message.content)[0]
-            if len(tag) < 3:
+            # Check if the tag is within the allowed length
+            if len(tag) < 3 or len(tag) > 25:
                 return
             server_id = str(message.guild.id)
 
