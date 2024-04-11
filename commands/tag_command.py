@@ -10,9 +10,6 @@ Classes:
 A Cog for handling commands related to tagging messages within Discord servers.
 """
 
-import datetime
-import re
-
 import disnake
 from disnake.ext import commands
 
@@ -25,7 +22,13 @@ from db import (
     increment_usage_count,
     reset_usage_count,
 )
-from helper import sentry_capture, tag_exists
+from helper import (
+    build_embed,
+    find_old_tag_in_string,
+    find_tag_in_string,
+    sentry_capture,
+    tag_exists,
+)
 from modals import AddTagModal, UpdateTagModal
 
 
@@ -250,8 +253,6 @@ class TagCommands(commands.Cog):
         if message.author == self.bot.user or not message.content:
             return
 
-        tag = False
-
         if find_old_tag_in_string(message.content):
             tag = find_old_tag_in_string(message.content)[0]
             sentry_capture(
@@ -263,6 +264,7 @@ class TagCommands(commands.Cog):
                 f"Deprecated `%` uses, please consider using new trigger character `§{tag}`",
                 delete_after=5,
             )
+            return
 
         if find_tag_in_string(message.content):
             tag = find_tag_in_string(message.content)[0]
@@ -288,36 +290,6 @@ class TagCommands(commands.Cog):
                     await message.channel.send(f'No message found for tag "{tag}".')
 
 
-def find_tag_in_string(s):
-    """
-    Finds and returns tags within a string that start with '%'.
-
-    Args:
-        s (str): The input string to search for tags.
-
-    Returns:
-        list: A list of tags found in the input string.
-    """
-    tags = re.findall(r"§(\w+[-\w]*)", s)
-    return tags
-
-
-def find_old_tag_in_string(s):
-    """
-    Deprecated function to find old tags in a string.
-
-    Finds and returns tags within a string that start with '%'.
-
-    Args:
-        s (str): The input string to search for tags.
-
-    Returns:
-        list: A list of tags found in the input string.
-    """
-    tags = re.findall(r"%(\w+[-\w]*)", s)
-    return tags
-
-
 def setup(bot):
     """
     Adds the TagCommands cog to the bot.
@@ -326,40 +298,3 @@ def setup(bot):
     - bot: The bot instance to add the cog to.
     """
     bot.add_cog(TagCommands(bot))
-
-
-def build_embed(tag_info, username):
-    """
-    Builds an embed for a tagged message.
-
-    Args:
-        tag_info (dict): A dictionary containing information about the tag.
-            It should have the following keys:
-            - 'tag': The tag name.
-
-            - 'content':
-            The content of the tag.
-
-            - 'created_at':
-            The creation date and time of the tag in the format '%Y-%m-%d %H:%M:%S'.
-
-            - 'usage_count': The number of times the tag has been used.
-
-        username (str): The username of the user who created the tag.
-
-    Returns:
-        disnake.Embed: An embed object representing the tagged message.
-    """
-    created_at = datetime.datetime.strptime(tag_info["created_at"], "%Y-%m-%d %H:%M:%S")
-    created_at_formatted = created_at.strftime("%d/%m/%Y at %H:%M")
-
-    embed = disnake.Embed(title=f"Tag: {tag_info['tag']}", color=disnake.Color.blue())
-    embed.add_field(name="Content", value=tag_info["content"], inline=False)
-    embed.add_field(name="Created by", value=username, inline=True)
-    embed.add_field(name="Added", value=created_at_formatted, inline=True)
-    embed.add_field(
-        name="Number of calls",
-        value=str(tag_info["usage_count"]),
-        inline=True,
-    )
-    return embed
