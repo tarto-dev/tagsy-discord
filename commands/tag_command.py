@@ -25,7 +25,7 @@ from db import (
     increment_usage_count,
     reset_usage_count,
 )
-from helper import tag_exists
+from helper import sentry_capture, tag_exists
 from modals import AddTagModal, UpdateTagModal
 
 
@@ -250,6 +250,20 @@ class TagCommands(commands.Cog):
         if message.author == self.bot.user or not message.content:
             return
 
+        tag = False
+
+        if find_old_tag_in_string(message.content):
+            tag = find_old_tag_in_string(message.content)[0]
+            sentry_capture(
+                Exception(f"Deprecated tag usage: {tag}"),
+                server_id=message.guild.id,
+                user_id=message.author.id,
+            )
+            await message.channel.send(
+                f"Deprecated `%` uses, please consider using new trigger character `§{tag}`",
+                delete_after=5,
+            )
+
         if find_tag_in_string(message.content):
             tag = find_tag_in_string(message.content)[0]
             # Check if the tag is within the allowed length
@@ -276,6 +290,22 @@ class TagCommands(commands.Cog):
 
 def find_tag_in_string(s):
     """
+    Finds and returns tags within a string that start with '%'.
+
+    Args:
+        s (str): The input string to search for tags.
+
+    Returns:
+        list: A list of tags found in the input string.
+    """
+    tags = re.findall(r"§(\w+[-\w]*)", s)
+    return tags
+
+
+def find_old_tag_in_string(s):
+    """
+    Deprecated function to find old tags in a string.
+
     Finds and returns tags within a string that start with '%'.
 
     Args:
