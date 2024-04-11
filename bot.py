@@ -14,6 +14,7 @@ from disnake.ext import commands
 import config
 from context_menu import ContextMenuCommands
 from db import db_setup
+from helper import sentry_capture
 
 sentry_sdk.init(
     dsn=config.SENTRY_DSN,
@@ -58,6 +59,13 @@ async def on_ready():
                 bot.load_extension(f"commands.{extension}")
                 print(f"Loaded extension: {extension}")
             except commands.errors.ExtensionNotFound as e:
+                sentry_capture(
+                    commands.errors.ExtensionNotFound(
+                        f"Extension not found: {extension}"
+                    ),
+                    0,
+                    0,
+                )
                 print(f"Failed to load extension {extension}.", e)
     bot.add_cog(ContextMenuCommands(bot))
 
