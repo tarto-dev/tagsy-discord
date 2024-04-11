@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """This module contains helper functions for Tagsy."""
 
+from sentry_sdk import capture_exception
+
 from db import get_message
 
 
@@ -54,3 +56,18 @@ def create_selected_message_content(inter):
     )
 
     return selected_message_content
+
+
+def sentry_capture(exception, server_id=0, user_id=0):
+    """
+    Captures an exception and sends it to Sentry.
+
+    Args:
+    - exception (Exception): The exception to capture.
+    - server_id (int): The ID of the server where the exception occurred.
+    - user_id (int): The ID of the user who triggered the exception.
+
+    Returns:
+    - None
+    """
+    capture_exception(exception, extra={"server_id": server_id, "user_id": user_id})
