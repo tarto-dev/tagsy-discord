@@ -7,7 +7,7 @@ import re
 import disnake
 from sentry_sdk import capture_exception
 
-from db import get_message
+from db.sqlite_handler import get_message
 
 
 def generate_recommendations(tag):

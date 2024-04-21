@@ -3,7 +3,7 @@
 # pylint: disable=arguments-differ,duplicate-code
 import disnake
 
-from db import get_similar_tags, update_message
+from db.sqlite_handler import get_similar_tags, update_message
 from helper import tag_exists
 from views import YesNoView
 
