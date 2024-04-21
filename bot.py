@@ -13,7 +13,7 @@ from disnake.ext import commands
 
 import config
 from context_menu import ContextMenuCommands
-from db import db_setup
+from db.sqlite_handler import db_setup
 from helper import sentry_capture
 
 sentry_sdk.init(

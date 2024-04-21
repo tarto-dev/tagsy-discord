@@ -4,7 +4,7 @@
 
 import disnake
 
-from db import add_message
+from db.sqlite_handler import add_message
 from helper import generate_recommendations, tag_exists
 from views import YesNoView
 
