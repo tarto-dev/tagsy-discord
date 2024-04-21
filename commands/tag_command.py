@@ -14,7 +14,7 @@ import disnake
 from disnake.ext import commands
 
 # Import functions from the database module to interact with tagged messages.
-from db import (
+from db.sqlite_handler import (
     delete_message,
     get_all_messages,
     get_message,

@@ -11,7 +11,7 @@ Classes:
 
 import disnake
 
-from db import add_message, update_message
+from db.sqlite_handler import add_message, update_message
 
 
 class YesNoView(disnake.ui.View):

@@ -12,7 +12,7 @@ from io import StringIO
 import disnake
 from disnake.ext import commands
 
-from db import DB_PATH, get_all_tags_for_all_servers
+from db.sqlite_handler import DB_PATH, get_all_tags_for_all_servers
 from helper import sentry_capture
 
 
