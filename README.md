@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/tarto-dev/tagsy-discord.png)](https://codeclimate.com/github/tarto-dev/tagsy-discord)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Discord bot](https://img.shields.io/badge/Discord-bot-7289da?logo=discord)](https://discord.com/oauth2/authorize?client_id=1224771846247809156&permissions=277025451008&scope=bot)
-[![Upvotes](https://top.gg/api/widget/upvotes/1224771846247809156.svg?noavatar=true)](https://top.gg/bot/1224771846247809156)
+[![Votes](https://top.gg/api/widget/upvotes/1224771846247809156.svg?noavatar=true)](https://top.gg/bot/1224771846247809156)
 [![Status](https://top.gg/api/widget/status/1224771846247809156.svg?noavatar=true)](https://top.gg/bot/1224771846247809156)
 [![Servers](https://top.gg/api/widget/servers/1224771846247809156.svg?noavatar=true)](https://top.gg/bot/1224771846247809156)
 

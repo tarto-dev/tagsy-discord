@@ -24,6 +24,7 @@ repos:
           - --no-must-find-files
           - --no-progress
           - --no-summary
+          - --show-suggestions
           - --gitignore
 -   repo: https://github.com/PyCQA/isort
     rev: 5.13.2
