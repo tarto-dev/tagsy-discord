@@ -213,3 +213,10 @@ async def reset_usage_count(server_id, tag):
             (server_id, tag),
         )
         await db.commit()
+
+
+async def purge_tags(server_id):
+    """Deletes all tags associated with a specific server."""
+    async with aiosqlite.connect(DB_PATH) as db:
+        await db.execute("DELETE FROM messages WHERE server_id = ?", (server_id,))
+        await db.commit()
