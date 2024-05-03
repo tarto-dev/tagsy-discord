@@ -12,7 +12,7 @@ from io import StringIO
 import disnake
 from disnake.ext import commands
 
-from db.sqlite_handler import DB_PATH, get_all_tags_for_all_servers
+from db.sqlite_handler import DB_PATH, get_all_tags_for_all_servers, purge_tags
 from helper import sentry_capture
 
 
@@ -237,7 +237,6 @@ class DevCommands(commands.Cog):
             )
             await ctx.send(f"Failed to send file via DM: {e}")
 
-    # add command that dump configs values
     @commands.command(name="dumpconfig", hidden=True)
     @commands.is_owner()
     async def dump_config(self, ctx: commands.Context):
@@ -285,6 +284,25 @@ class DevCommands(commands.Cog):
                 ctx.author.id,
             )
             await ctx.send(f"Failed to send file via DM: {e}")
+
+    # add command to purge all tags from current server
+    @commands.command(name="purge_tags", hidden=True)
+    @commands.is_owner()
+    async def purge_tags(self, ctx: commands.Context, server_id: int):
+        """
+        Purges all tags from the given server.
+
+        This command is only available to the bot owner.
+
+        Parameters:
+        - ctx (commands.Context): The context object representing the invocation context.
+
+        Returns:
+        - None
+        """
+        await ctx.send(f"Purging all tags for the server {server_id}...")
+        purge_tags(server_id)
+        await ctx.send(f"All tags have been purged for the server {server_id}.")
 
 
 def setup(bot):
