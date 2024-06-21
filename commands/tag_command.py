@@ -24,9 +24,7 @@ from db.sqlite_handler import (
 )
 from helper import (
     build_embed,
-    find_old_tag_in_string,
     find_tag_in_string,
-    sentry_capture,
     tag_exists,
 )
 from modals import AddTagModal, UpdateTagModal
@@ -251,19 +249,6 @@ class TagCommands(commands.Cog):
         - None
         """
         if message.author == self.bot.user or not message.content:
-            return
-
-        if find_old_tag_in_string(message.content):
-            tag = find_old_tag_in_string(message.content)[0]
-            sentry_capture(
-                Exception(f"Deprecated tag usage: {tag}"),
-                server_id=message.guild.id,
-                user_id=message.author.id,
-            )
-            await message.channel.send(
-                f"Deprecated `%` uses, please consider using new trigger character `§{tag}`",
-                delete_after=5,
-            )
             return
 
         if find_tag_in_string(message.content):
