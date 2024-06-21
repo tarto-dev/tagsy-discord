@@ -126,19 +126,3 @@ def find_tag_in_string(s):
     """
     tags = re.findall(r"§(\w+[-\w]*)", s)
     return tags
-
-
-def find_old_tag_in_string(s):
-    """
-    Deprecated function to find old tags in a string.
-
-    Finds and returns tags within a string that start with '%'.
-
-    Args:
-        s (str): The input string to search for tags.
-
-    Returns:
-        list: A list of tags found in the input string.
-    """
-    tags = re.findall(r"%(\w+[-\w]*)", s)
-    return tags
